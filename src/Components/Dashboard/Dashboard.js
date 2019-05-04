@@ -1,9 +1,9 @@
 import React from 'react';
 import Search from '../Search';
-const Dashboard =()=> {
+const Dashboard =(props)=> {
     return (
         <div>
-                <Search/>
+                <Search onSearchHandle={props.onSearchHandle} search={props.search}/>
         </div>
     )
 }

@@ -26,7 +26,7 @@ class LoginContainer extends React.Component {
         return(
             <div>
                     <Header/>
-                    <Login onSubmit={this.onSubmit}/>
+                    <Login onSubmit={this.onSubmit} />
 
             </div>
         )

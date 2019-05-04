@@ -1,22 +1,15 @@
 import React from 'react';
 import  './Search.css';
-import {Input, FormGroup, Container, Col, Label, Form} from 'reactstrap';
-const Search = ()=> {
+// import {Input, FormGroup, Container, Col, Label, Form} from 'reactstrap';
+const Search = (props)=> {
+    const {search} = props;
+    console.log('search is ', search);
     return(
         <div>
-            <Container>
-            
-
-               
-                 <FormGroup row>
-                        <Label sm={2}> Search </Label>
-                        <Col>
-                          <Input className= 'searchbox' sm={5} placeholder='Enter GIF Name'/>
-                        </Col>
-                 </FormGroup>
-           
-            </Container>
+            <h1> Welcome to Dashboard</h1>
+            {search.map(search=> { console.log(search)})}
         </div>
+    
     )
 }
 

@@ -18,14 +18,14 @@ function* loginWorkerSaga(action) {
         // const data = yield call(fire.auth().signInWithEmailAndPassword(email,pwd));
         // console.log(data);
 
-        // firebase.auth().signInWithEmailAndPassword(email,pwd).then((res)=> {
-        //         // console.log('response is ', res);
-        //         yield put (loginAction.userLoginUpdate(uname));
-        //          uname = res;
+        firebase.auth().signInWithEmailAndPassword(email,pwd).then((res)=> {
+                console.log('response is ', res);
+                // yield put (loginAction.userLoginUpdate(uname));
+                //  uname = res;
                 
-        //     }).catch((err)=> {
-        //         console.log('Error is ', err);
-        //     })
+            }).catch((err)=> {
+                console.log('Error is ', err);
+            })
             // console.log(uname);
             // yield put (loginAction.userLoginUpdate(uname));
         // console.log('response is ',data)

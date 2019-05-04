@@ -1,7 +1,7 @@
 import Actions from './Actions';
 
 const intialState = {
-  
+
 }
 const Reducer=(state = intialState, action)=> {
     // console.log('login Reducer is ',action);
