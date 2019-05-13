@@ -1,8 +1,9 @@
 import Actions from './Actions';
 
-const initialState =  [
-
-];
+const initialState =   {
+    GIFS : [],
+    isLoading: true
+};
 
 const Reducer =(state=initialState , action)=> {
     switch(action.type) {
@@ -19,8 +20,9 @@ const Reducer =(state=initialState , action)=> {
                 }
         case Actions.ONPAGELOADUPDATE : 
                 return {
-                    // ...state,
-                    ...action.payload
+                    ...state,
+                    GIFS : [...action.payload],
+                    isLoading: action.payload.isLoading
                     
                 }
         default : 

@@ -5,13 +5,7 @@ import searchSaga from '../Components/Dashboard/Saga';
 export default function* rootSagas() {
   yield all([
       loginSaga(), 
-      searchSaga()
+      searchSaga(),
+   
   ]);
-  // yield fork(loginSaga);
 }
-
-// export default function* rootSagas() {
-//   yield fork(
-//     loginSaga()
-//   )
-// }

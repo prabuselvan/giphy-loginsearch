@@ -1,3 +1,9 @@
 .searchbox{
     margin-top: 30px;
 }
+
+.container-parent{
+    width: 33.3%;
+    float: left;
+    border: 1pz solid green;
+}

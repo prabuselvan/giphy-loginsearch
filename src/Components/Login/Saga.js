@@ -1,47 +1,54 @@
 import loginAction from './Actions';
 import {takeEvery, call, put} from 'redux-saga/effects';
+import {Redirect} from 'react-router-dom';
 import cookies from 'js-cookie';
 import fire from '../../Config/Fire';
 import '@firebase/firestore';
-// require('firebase/auth');
 import * as firebase from 'firebase';
-
 import axios from 'axios';
 
 function* loginWorkerSaga(action) {
-    // console.log('login worker saga ',action.payload);
-    const {email, pwd} = action.payload;
-    let uname;
-    // try {
-        // const auth= firebase.auth();
-        // console.log(email, pwd);
-        // const data = yield call(fire.auth().signInWithEmailAndPassword(email,pwd));
-        // console.log(data);
+    console.log('login worker saga ',action.payload);
+    console.log('loginWorkersaga');
+    const {uname, password} = action.payload;
 
-        firebase.auth().signInWithEmailAndPassword(email,pwd).then((res)=> {
-                console.log('response is ', res);
-                // yield put (loginAction.userLoginUpdate(uname));
-                //  uname = res;
-                
-            }).catch((err)=> {
-                console.log('Error is ', err);
-            })
-            // console.log(uname);
-            // yield put (loginAction.userLoginUpdate(uname));
-        // console.log('response is ',data)
-        // const data = yield call(firebase.auth().signInWithEmailAndPassword (email,pwd));
-        // console.log('response is ', data);
+    try {
+        const output =  yield call(
+            [ firebase.auth(), firebase.auth().signInWithEmailAndPassword ],
+            uname,
+            password,
+          );
+        cookies.set('loggedinUser', output.user.email);
+          console.log('saga output is ', output);
+             const userDetails = {
+                                    uname: output.user.email,
+                                    message: 'Valid User'
+                                 };
+         yield put (loginAction.userLoginUpdate(userDetails));
 
-        // yield  put (loginAction.userLoginUpdate(data.user.email));
+    } catch(err) {
+        console.log('error is ', err.message);
+        console.log( 'error code is ',err.code);
+        cookies.set('loggedinUser',{});
+        const invalidUser = {
+                        uname: '',
+                        message: err.message
+        }
+        yield put (loginAction.userLoginValidation(invalidUser));
+    }
 
-    // } catch(error) {
-        // console.log('Message is ', error);
+}
 
-    // }
+function* logoutWorkerSaga(action) {
+    console.log('logout workersaga', action);
+    cookies.remove('loggedinUser',{});
+    yield put(loginAction.userLogoutUpdate({}));
+
 }
 
 export default function* loginWatcherSaga() {
-    yield takeEvery(loginAction.USER_LOGIN, loginWorkerSaga)
+    yield takeEvery(loginAction.USER_LOGIN, loginWorkerSaga);
+    yield takeEvery(loginAction.USER_LOGOUT, logoutWorkerSaga)
 };
 
 // takeEvery always accept Actions
